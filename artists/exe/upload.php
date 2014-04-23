@@ -49,5 +49,5 @@
                             $_SESSION['message'] = $upload_errors[$error];
                         }
             }
-           header("Location: venue.php?id=$id");
+           header("Location: exe/profile.php?id=$id");
 ?>

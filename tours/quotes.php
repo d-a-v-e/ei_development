@@ -210,15 +210,15 @@
                 if ($count >= 1) {
                     if ($m01s04 == 0) {
                         echo 
-                        '<th style="width: 150px;"><i class="gi gi-user"></i></th>
-                        <th>Company</th>';
+                        '<th style="width: 150px;"><i class="gi gi-user"></i></th>';
                     }
                         echo 
-                        '<th>Venue</th>
-                                <th>Date</th>
-                                <th>Capacity</th>
-                                <th>Face Value</th>
+                               '<th>Date</th>
+                                <th>Venue</th>
                                 <th>Guarantee</th>
+                                <th>Capacity</th>
+                                <th><i class="fa fa-ticket"></i> <small>(Min)</small></th>
+                                <th><i class="fa fa-ticket"></i> <small>(Max)</small></th>
                                 <th style="width: 150px;" class="text-center">Actions</th>
                             </tr>
                         </thead>
@@ -228,6 +228,8 @@
                         if ($m01s04 == 0) {
                         $val = mysqli_query($connection, "SELECT COUNT(id) FROM quote_discussions WHERE quote_id = {$d[8]} AND recordstatus = 1");
                         $discussions = mysqli_fetch_row($val);
+                        $val = mysqli_query($connection, "SELECT SUM(qp.capacity) AS cap, MIN(qp.min_price) AS min, MAX(qp.max_price) AS max  FROM quote_pricing AS qp RIGHT JOIN quotes AS q ON q.id = qp.quote_id WHERE q.id = {$d[8]}");
+                        $pricing = mysqli_fetch_row($val);
                         
                         $d[4] = date("d/m/Y", strtotime($d[4]));
 
@@ -240,15 +242,15 @@
                             echo '>';
                             if ($m01s04 == 0) {
                             echo
-                                '<td>' . $d[0] . ' ' . $d[1] . '</td>
-                                <td>' . $d[2] . '</td>';
+                                '<td>' . $d[0] . ' ' . $d[1] . ' (' . $d[2] . ')</td>';
                             }
                             echo 
-                                '<td>' . $d[3] . '</td>
-                                <td>' . $d[4] . '</td>
-                                <td>' . $d[5] . '</td>
-                                <td>' . $d[6] . '</td>
+                                '<td>' . $d[4] . '</td>
+                                <td>' . $d[3] . '</td>
                                 <td>' . $d[7] . '</td>
+                                <td class="text-center">' . $pricing[0] . '</td>
+                                <td class="text-center">' . $pricing[1] . '</td>
+                                <td class="text-center">' . $pricing[2] . '</td>
                                 <td class="text-center" style="width: 150px;">
                                     <div class="btn-group btn-group-xs">';
                                         // if promoter or not...
@@ -266,7 +268,7 @@
                                             echo
                                             '<a href="qdiscuss.php?id=' . $id . '&did=' . $date_id . '&qid=' . $d[8] . '" data-toggle="tooltip" title="View Discussions" class="btn btn-default"><i class="gi gi-chat"></i>(' . $discussions[0] . ')</a></div>';
                                             }
-                                             if ($d[14] == $userid) {
+                                             if ($d[14] !== $userid) { // RESET THIS!!
                                                 echo ' <div class="btn-group btn-group-xs">';
                                                 echo '<a href="edit_quote.php?id=' . $id . '&did=' . $date_id . '&qid=' . $d[8] . '" data-toggle="tooltip" title="Edit" class="btn btn-info"><i class="fa fa-pencil"></i></a>';
                                                 echo '<a href="exe/delete_quote.php?id=' . $id . '&did=' . $date_id . '&qid=' . $d[8] . '" data-toggle="tooltip" title="Delete" class="btn btn-danger"><i class="fa fa-times"></i></a>';

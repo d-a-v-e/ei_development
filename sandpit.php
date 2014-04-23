@@ -59,4 +59,9 @@ $( "button" ).click(function() {
   $( ".tog" ).toggle("fast");
 });
 </script>
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#colorPick').ColorPicker();
+});
+</script>
 <?php include 'inc/template_end.php'; ?>

@@ -60,14 +60,15 @@ $sql = "SELECT city, date, id FROM routing WHERE campaign_id = {$id} AND records
             $_SESSION['message'] = '';
         }
           ?>
+          <div id="total"></div>
             <table class="table table-condensed table-borderless">
                             <thead>
                             <tr>
                             <th></th>
                                 <?php 
                                     while ($dates = mysqli_fetch_row($data)) {
-                                        echo "<th style='font-size: 16px;'><small>" . $dates[0] . "</small></th>" ;
                                     $datearray[] = $dates[2];
+                                        echo "<th style='font-size: 16px;'><small>" . $dates[0] . "<br><p id='" . $dates[2] . "'></p></small></th>" ;
                                     }
                                 ?>
                                 <th></th><!--top row white space for 'save' buttons-->
@@ -79,7 +80,7 @@ $sql = "SELECT city, date, id FROM routing WHERE campaign_id = {$id} AND records
                                 $dids = explode(",", $pro[2]);
                                 echo "<tr><td width='20%'>". $pro[4] . " (" . $pro[5] . " " . $pro[6] . ")</td>";
                                 for ($i=0; $i < sizeof($datearray); $i++) {
-                                        echo "<form action='exe/save_promoters.php?id=" . $pro[3] . "' method='post' class='form'><td><input type='checkbox' value='1' name=" . $datearray[$i] ;
+                                        echo "<form action='exe/save_promoters.php?id=" . $pro[3] . "' method='post' class='form'><td><input class='" . $datearray[$i] . "' type='checkbox' value='1' name=" . $datearray[$i] ;
                                         if (in_array($datearray[$i], $dids)) { echo " checked='checked' "; }
                                         if (!is_null($pro[1])) { echo " disabled "; }
                                         echo "></td>" ;
@@ -112,4 +113,23 @@ $sql = "SELECT city, date, id FROM routing WHERE campaign_id = {$id} AND records
 <!-- Load and execute javascript code used only in this page -->
 <script src="../js/pages/tablesGeneral.js"></script>
 <script>$(function(){ TablesGeneral.init(); });</script>
+<script>
+   countChecked = function(e) {
+//        $.each(e, function( index, value ) {
+            Id = "#"+e;
+            Class = "."+e;
+            $(Class).click(function () {
+                  var check = $('input:checked').length -1;
+                  $(Id).text(check);
+                  console.log(Id+", "+check);
+            console.log(Id);
+            console.log(Class);
+                  if (check < 1) {
+                    $(Id).empty();
+                  }
+            });
+//        });
+   }
+   countChecked(45);
+</script>
 <?php include 'inc/template_end.php'; ?>

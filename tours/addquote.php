@@ -3,6 +3,38 @@
 <?php include 'inc/permissions.php'; ?>
 <?php include 'inc/template_start.php'; ?>
 <?php include 'inc/page_head.php'; ?>
+<script>
+function showUser(str)
+{
+if (str=="")
+  {
+  document.getElementById("txtHint").innerHTML="";
+  return;
+  } 
+if (window.XMLHttpRequest)
+  {// code for IE7+, Firefox, Chrome, Opera, Safari
+  xmlhttp=new XMLHttpRequest();
+  console.log("yes 1");
+  }
+else
+  {// code for IE6, IE5
+  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  console.log("yes 2");
+  }
+xmlhttp.onreadystatechange=function()
+  {
+  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+    {
+    document.getElementById("pullVenue").innerHTML=xmlhttp.responseText;
+    }
+  }
+xmlhttp.open("GET","exe/pull_venue.php?q="+str,true);
+console.log("yes 3");
+xmlhttp.send();
+console.log("yes 4");
+}
+</script>
+<link rel="stylesheet" media="screen" type="text/css" href="../colorpicker/css/colorpicker.css" />
 <?php 
 
     $id = $_GET["id"];
@@ -107,7 +139,7 @@
     <!-- END Table Responsive Header -->
 
     <div class="row">
-        <div class="col-md-6 col-lg-5">
+        <div class="col-md-6 col-lg-7">
         <div class="block">
                 <!-- Horizontal Form Title -->
                 <div class="block-title">
@@ -115,7 +147,7 @@
                 </div>
                 <form action="exe/add_quote.php?id=<?php echo $id . '&did=' . $date_id ; ?>" method="post" class="form-horizontal" >
                     <div class="form-group">
-                        <label class="col-md-3 control-label"><span id="addFields" class="btn btn-xs btn-info" title="Toggle optional fields"><i class="gi gi-circle_plus"></i></span></label>
+                        <label class="col-md-3 control-label"><span id="addFields" class="btn btn-xs btn-primary" title="Toggle optional fields"><i class="gi gi-circle_plus"></i></span></label>
                         <div class="col-md-9">
                             <p class="form-control-static">Quote already agreed? Add promoter...</p>
                         </div>
@@ -140,8 +172,8 @@
                 <div class="form-group">
                         <label class="col-md-3 control-label" for="venue">Venue</label>
                         <div class="col-md-9">
-                            <select id="venue" name="venue" class="select-chosen">
-                                    <option value="">Select a Venue...</option>
+                            <select id="venue" name="venue" onchange="showUser(this.value)" class="select-chosen">
+                                    <option value="0">Select a Venue...</option>
                                     <?php 
                                         $in = mysqli_query($connection, "SELECT id, name FROM venue ORDER BY name");
                                         while ($venue = mysqli_fetch_row($in))
@@ -151,36 +183,52 @@
                         </div>
                     </div>
                     <div class="form-group">
+                    <label class="col-md-3 control-label" for="date"></label>
+                        <div class="col-md-9">
+                        Not listed?
+                            <a href="../venues/new.php" class="btn btn-xs btn-primary">Add New</a>
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label class="col-md-3 control-label" for="date">Date</label>
                         <div class="col-md-9">
                             <input type="text" id="date" name="date" class="form-control input-datepicker" data-date-format="dd/mm/yyyy" placeholder="dd/mm/yyyy">
                         </div>
                     </div>
                     <div class="form-group">
-                    <label class="col-md-3 control-label" for="date"></label>
-                        <div class="col-md-9">
-                        Not listed?
-                            <a href="venues/new.php" class="btn btn-xs btn-primary">Add New</a>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-md-3 control-label" for="capacity">Capacity</label>
-                        <div class="col-md-9">
-                            <input type="text" id="capacity" name="capacity" class="form-control" >
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-md-3 control-label" for="face_value">Face Value</label>
-                        <div class="col-md-9">
-                            <input type="text" id="face_value" name="face_value" class="form-control">
-                        </div>
-                    </div>
-                    <div class="form-group">
                         <label class="col-md-3 control-label" for="guarantee">Guarantee</label>
                         <div class="col-md-9">
-                            <textarea type="text" id="guarantee" rows="5" name="guarantee" class="form-control"></textarea>
+                            <textarea type="text" id="guarantee" rows="2" name="guarantee" class="form-control"></textarea>
                         </div>
                     </div>
+                    <legend></legend>
+                    <div class="form-group">
+                    <label class="col-md-3 control-label"><big>Price Breaks</big></label>
+                        <div class="col-md-12">
+                            <table class="table table-borderless table-striped">
+                                    <tr>
+                                        <th><small>Colour</small></th>
+                                        <th><small>Description</small></th>
+                                        <th><small>Face Value</small></th>
+                                        <th><small>Capacity</small></th>
+                                        <th></th>
+                                    </tr>
+                                <tbody id="breakAdd">
+                                    <tr>
+                                        <td><input id="colorPick" size="2"><input id="takeHex" size="2" hidden></td>
+                                        <td><input size="20" name="levels[pricename]" required></td>
+                                        <td><input size="5" name="levels[min_value]" required> to <input size="5" name="levels[max_value]" required></td>
+                                        <td><input size="5" name="levels[cap]" required></td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="btn-group">
+                                <button id="AddMoreFileBox" class="btn btn-xs btn-primary" data-toggle="tooltip" title="Add Field"><i class="gi gi-circle_plus"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <legend></legend>
                     <input class="form-control" value="<?php echo $id ; ?>" name="campaign" type="hidden"></input>
                     <input class="form-control" value="<?php echo $userid ; ?>" name="user" type="hidden"></input>
                     <input class="form-control" value="<?php echo $date_id ; ?>" name="routing_date" type="hidden"></input>
@@ -193,8 +241,8 @@
                 </form>
             </div>
         </div>
-        <div class="col-lg-7 col-md-6">
-        <!-- Block with Options Left -->
+        <div class="col-md-6 col-lg-5">
+            <div id="pullVenue"></div>
             <div class="block">
                 <!-- Block with Options Left Title -->
                 <div class="block-title clearfix">
@@ -205,22 +253,16 @@
                 <!-- Block with Options Left Content -->
                 <!-- Info Content -->
                 <table class="table table-borderless table-striped">
+                    <tr>
+                        <th><small>Timeframe</small></th>
+                        <th><small>Location</small></th>
+                        <th><small>Flexibility</small></th>
+                    </tr>
                     <tbody>
                         <tr>
-                            <td><strong>Location: </strong></td>
-                            <td><span class="pull-right"><strong><?php echo $reqs[0] ?></strong></span></td>
-                        </tr>
-                        <tr>
-                            <td><strong>Country: </strong></td>
-                            <td><span class="pull-right"><strong><?php echo $reqs[1] ?></strong></span></td>
-                        </tr>
-                        <tr>
-                            <td><strong>Timeframe: </strong></td>
-                            <td><span class="pull-right"><strong><?php echo $reqs[2] ?></strong></span></td>
-                        </tr>
-                        <tr>
-                            <td><strong>Flexibility: </strong></td>
-                            <td><span class="pull-right"><strong><?php echo $reqs[3] ?></strong></span></td>
+                            <td><span><strong><?php echo $reqs[2] ?></strong></span></td>
+                            <td><span><strong><?php echo $reqs[0] . ", " . $reqs[1]; ?></strong></span></td>
+                            <td><span><strong><?php echo $reqs[3] ?></strong></span></td>
                         </tr>
                     </tbody>
                 </table>
@@ -230,7 +272,7 @@
             <div class="block">
                 <!-- Reqs Title -->
                 <div class="block-title">
-                    <h2><strong>Requirements</strong> <small>&bull; <a href="javascript:void(0)" data-toggle="tooltip" title="Download requirements PDF"> <i class="fa fa-file-text text-primary"></i> PDF</a></small></h2>
+                    <h2 class="pull-right"><strong>Tour</strong> Requirements</h2>
                 </div>
                 <table class="table table-borderless table-condensed table-striped">
                     <tbody>
@@ -285,5 +327,55 @@
           $( ".tog" ).toggle("fast");
         });
     });
+</script>
+<script type="text/javascript">
+    $(document).ready(function() {
+
+var MaxInputs       = 8; //maximum input boxes allowed
+var InputsWrapper   = $("#InputsWrapper"); //Input boxes wrapper ID
+var AddButton       = $("#AddMoreFileBox"); //Add button ID
+
+var x = InputsWrapper.length; //initlal text box count
+var FieldCount=1; //to keep track of text box added
+
+$(AddButton).click(function (e)  //on add input button click
+{
+        if(x <= MaxInputs){
+            FieldCount++; //text box added increment
+            var fieldIndex = FieldCount - 1;
+            $('#breakAdd').append('<tr id="getRidOf" align="left"><td><input id="colorPick" size="2"><input id="takeHex" size="2" hidden></td><td><input size="20" name="levels[pricename'+fieldIndex+']" required></td><td><input size="5" name="levels[min_value'+fieldIndex+']" required> to <input size="5" name="levels[max_value'+fieldIndex+']" required><td><input size="5" name="levels[cap'+fieldIndex+']" required></td><td><button id="removeclass" class="btn btn-xs btn-default" data-toggle="tooltip" title="Remove"><i class="fa fa-times"></i></button></td></tr>');
+            x++; //text box increment
+        }
+return false;
+});
+    $("body").on("click","#removeclass", function(e){ //user click on remove text
+            if( x >= 1 ) {
+                    $('#getRidOf').remove(); //remove text box
+                    x--; //decrement textbox
+            }
+    return false;
+    }) 
+});
+</script>
+<script type="text/javascript" src="../colorpicker/js/colorpicker.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#colorPick').ColorPicker({
+        color: '#0000ff',
+    onShow: function (colpkr) {
+        $(colpkr).fadeIn(500);
+        return false;
+    },
+    onHide: function (colpkr) {
+        $(colpkr).fadeOut(500);
+        return false;
+    },
+    onChange: function (hsb, hex, rgb) {
+        $('#colorPick').css('backgroundColor', '#' + hex);
+        $('#takeHex').val('#' + hex);
+        console.log(hex);
+    }
+    });
+});
 </script>
 <?php include 'inc/template_end.php'; ?>

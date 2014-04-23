@@ -45,7 +45,7 @@
                     </div>
                     <div class="form-group">
                         <label class="sr-only" for="example-if-password">Enter a name</label>
-                        <input class="form-control" type="text" name="file_name" placeholder="Document name (Required)" required />
+                        <input class="form-control" type="text" name="file_name" placeholder="Document name (Optional)"/>
                     </div>
                     <div class="form-group">
                         <button name="submit" type="submit" class="btn btn-primary"><i class="hi hi-folder-open"></i> Upload</button>
