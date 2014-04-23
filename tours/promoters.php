@@ -115,7 +115,7 @@ $sql = "SELECT city, date, id FROM routing WHERE campaign_id = {$id} AND records
 <script>$(function(){ TablesGeneral.init(); });</script>
 <script>
    countChecked = function(e) {
-//        $.each(e, function( index, value ) {
+        $.each(e, function( index, value ) {
             Id = "#"+e;
             Class = "."+e;
             $(Class).click(function () {
@@ -128,7 +128,7 @@ $sql = "SELECT city, date, id FROM routing WHERE campaign_id = {$id} AND records
                     $(Id).empty();
                   }
             });
-//        });
+        });
    }
    countChecked(45);
 </script>
