@@ -61,10 +61,12 @@
                                 $d = mysqli_query($connection, "SELECT COUNT(id) FROM discussion_responses WHERE discussion_id = $dis[0] AND recordstatus = 1 ");
                                 $count = mysqli_fetch_row($d);
 
-                                $sql = "SELECT discussion_responses.`contributer_id`, discussion_responses.`response`, discussion_responses.`datecreated`, discussions.subject, discussions.participants, discussions.datecreated FROM discussion_responses \n"
-                                . "JOIN discussions ON discussions.id = discussion_responses.discussion_id\n"
-                                . "WHERE discussion_id = {$dis[0]} ";
-                                $dat = mysqli_query($connection, $sql) or die();
+                                $sql = "SELECT u.firstname, u.lastname, d.response, DATE_FORMAT(d.datecreated, \"%D %M %Y at %r\") FROM discussion_responses AS d\n"
+                                    . "JOIN users AS u ON d.contributer_id = u.id\n"
+                                    . "WHERE d.datecreated = (SELECT MAX(datecreated) FROM discussion_responses WHERE discussion_id = {$dis[0]})\n"
+                                    . "AND d.recordstatus = 1 ";
+                                $daat = mysqli_query($connection, $sql);
+                                $dat = mysqli_fetch_row($daat);
                         echo 
                         '<tr>
                             <td colspan="2">
@@ -72,7 +74,7 @@
                             </td>
                             <td class="text-center hidden-xs hidden-sm"><a href="javascript:void(0)">' . $count[0] . '</a></td>
                             <td class="text-center hidden-xs hidden-sm"><a href="javascript:void(0)">' . count(explode(",", $dis[2])) . '</a></td>
-                            <td class="hidden-xs hidden-sm"><a href="page_ready_user_profile.php">' . $dis[4] . '</a><br><small>April 2, 2014</small></td>
+                            <td class="hidden-xs hidden-sm"><a href="page_ready_user_profile.php">' . $dis[4] . '</a><br> by '.$dat[0].' '.$dat[1].'<p><small>on '.$dat[3].'</small></p></td>
                             <td class="hidden-xs hidden-sm">
                                 <div class="btn-group btn-group-xs" >
                                     <a href="exe/delete_disc.php?id=' . $id . '&did=' . $dis[0] . '" class="btn btn-danger" data-toggle="tooltip" title="Remove"><i class="fa fa-times"></i></a>

@@ -82,6 +82,12 @@
                 <!-- Horizontal Form Content -->
                 <form action="new_desc.php?id=<?php echo $id; ?>" method="post" class="form-horizontal" >
                     <div class="form-group">
+                        <label class="col-md-3 control-label" for="personnel">To</label>
+                        <div class="col-md-9">
+                            <textarea type="text" id="personnel" name="personnel" class="form-control" placeholder="Invite participants: Please insert email addresses separated by commas"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label class="col-md-3 control-label" for="subject">Subject</label>
                         <div class="col-md-9">
                             <input type="text" id="content" name="subject" class="form-control" >
@@ -94,9 +100,9 @@
                             </div> 
                     </div>
                     <div class="form-group">
-                        <label class="col-md-3 control-label" for="personnel">Invite Participants</label>
+                        <label class="col-md-3 control-label" for="example-file-multiple-input">Attach Docs</label>
                         <div class="col-md-9">
-                            <textarea type="text" id="personnel" name="personnel" class="form-control" placeholder="Insert email addresses separated by commas"></textarea>
+                            <input type="file" id="example-file-multiple-input" name="example-file-multiple-input" multiple>
                         </div>
                     </div>
                     <div class="form-group form-actions">
