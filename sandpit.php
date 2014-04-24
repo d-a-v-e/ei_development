@@ -17,7 +17,7 @@
         </div>
     </div>
     <ul class="breadcrumb breadcrumb-top">
-        <li><a href="">Just changing some content to test if it works on github...</a></li>
+        <li><a href="404.php">Just changing some content to test if it works on github...</a></li>
     </ul>
     <!-- END Blank Header -->
 
