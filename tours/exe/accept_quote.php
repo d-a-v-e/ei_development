@@ -23,7 +23,7 @@ if ($m01s04 == 1) {
 
     // EMAIL PROMOTER LETTING THEM KNOW THEIR QUOTE HAS BEEN ACCEPTED
 
-    header("Location: quote_notify_promoter.php?id={$campaign_id}&did={$date_id}&qid={$quote_id}");
+    header("Location: quote_notify_promoter.php?id={$quote_id}");
 
 ob_flush();
 

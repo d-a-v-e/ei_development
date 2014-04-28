@@ -3,11 +3,7 @@
 <?php
 ob_start();
 
-    $campaign_id = $_GET["id"];
-    $quote_id = $_GET["qid"];
-    $date_id = $_GET["did"];
-
-    // EMAIL PROMOTER LETTING THEM KNOW THEIR QUOTE HAS BEEN ACCEPTED
+    $quote_id = $_GET["id"];
 
 	$sql = "SELECT u.firstname, u.lastname, u.email, c.name AS campaign, c.artist, v.name, r.city, q.`date`, q.capacity, q.face_value, q.guarantee\n"
 	. "FROM quotes AS q \n"
@@ -26,15 +22,16 @@ ob_start();
 	$campaign = $info[3] . " (" . $info[4] . ")";
 	$to = $info[2];
 	$subject = 'Quote accepted'; 
-	$message = "Dear {$name},\nThis email is to notify you that your quote on {$campaign} has been accepted.\n";
+	$message = "Dear {$name},\r\nThis email is to notify you that your quote on {$campaign} has been accepted.\n";
 	$message .= "Please click the link below to validate this and notify venue.\n";
-	$message .= "<a href='http://entertainment-intelligence.com/eitp/tours/exe/promo_accept.php?id={$quote_id}'>Confirm Acceptance</a>";
-	#$message .= "<a href='http://127.0.0.1:8888/eitp/tours/exe/promo_accept.php?id={$quote_id}'>Confirm Acceptance</a>";
+	$message .= "<a href='http://entertainment-intelligence.com/eitp/tours/exe/promo_accept.php?id={$quote_id}'>Confirm Acceptance</a>\n";
+	$message .= "<a href='http://127.0.0.1:8888/eitp/tours/exe/promo_accept.php?id={$quote_id}'>Confirm Acceptance</a>";
 	$headers = "From: welcome@entertainment-intelligence.com\r\nReply-To: welcome@entertainment-intelligence.com";
 	$headers .= "\r\nContent-Type: multipart/alternative; boundary=\"PHP-alt-".$random_hash."\""; 
 
+	echo $message;
 	// mail( $to, $subject, $message, $headers );
- 	header("Location: ../quotes.php?id={$campaign_id}&did={$date_id}");
+ 	//header("Location: ../quotes.php?id={$campaign_id}&did={$date_id}");
 
 ob_flush();
 

@@ -116,7 +116,7 @@ $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
 						}
 
 						//$link = "<a href='http://entertainment-intelligence.com/prototype/invitation/new_promoter.php?id=" . $user[3] . "&cid=" . $campaign_id . " '>Click here to view online</a>";
-						$link = "<a href='http://127.0.0.1:8888/prototype/invitation/new_promoter.php?id=" . $user[3] . "&cid=" . $campaign_id . " '>Click here to view online</a>";
+						$link = "<a href='http://127.0.0.1:8888/proto/invitation/new_promoter.php?id=" . $user[3] . "&cid=" . $campaign_id . " '>Click here to view online</a>";
 						$mail .= '<br></tbody></table><br><p>' . $link . '</div></body></html><br>';
 						$mail_to = $user[2];
 
