@@ -58,14 +58,15 @@
     <div class="content-header content-header-media">
         <div class="header-section">
             <img src="../img/placeholders/avatars/avatar2.jpg" alt="Avatar" class="pull-right img-circle">
-            <h1><strong>Add</strong> Date</h1><br>
+            <h1><strong>Add</strong> Discussion</h1><br>
             <h1><?php echo $info[1] ?> - <?php echo $info[0] ?><br><small><?php echo $info[2] ?></small></h1>
         </div>
         <!-- For best results use an image with a resolution of 2560x248 pixels (You can also use a blurred image with ratio 10:1 - eg: 1000x100 pixels - it will adjust and look great!) -->
         <img src="../img/placeholders/headers/profile_header.jpg" <?php /* Put URL in here ( echo '../img/campaigns/' . $campaign_id . '/' . $image_name ;) ... */ ?> alt="header image" class="animation-pulseSlow">
     </div>
     <ul class="breadcrumb breadcrumb-top">
-        <li><a href="index.php?id=<?php echo $id; ?>">Tour</a></li>
+        <li><a href="index.php">Home</a></li>
+        <li><a href="tour.php?id=<?php echo $id; ?>">Tour</a></li>
         <li>Add Discussion</li>
     </ul>
     <!-- END Forms General Header -->
@@ -80,7 +81,7 @@
                 <!-- END Horizontal Form Title -->
 
                 <!-- Horizontal Form Content -->
-                <form action="new_desc.php?id=<?php echo $id; ?>" method="post" class="form-horizontal" >
+                <form action="new_desc.php?id=<?php echo $id; ?>" method="post" class="form-horizontal">
                     <div class="form-group">
                         <label class="col-md-3 control-label" for="personnel">To</label>
                         <div class="col-md-9">
@@ -115,7 +116,6 @@
             </div>
         </div>
     </div>
-    <!-- END Form Example with Blocks in the Grid -->
 </div>
 <!-- END Page Content -->
 
