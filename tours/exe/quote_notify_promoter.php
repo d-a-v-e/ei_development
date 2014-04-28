@@ -27,7 +27,7 @@ ob_start();
 	$to = $info[2];
 	$subject = 'Quote accepted'; 
 	$message = "Dear {$name},\nThis email is to notify you that your quote on {$campaign} has been accepted.\n";
-	$message .= "Please click the link below to validate this.\n";
+	$message .= "Please click the link below to validate this and notify venue.\n";
 	$message .= "<a href='http://entertainment-intelligence.com/eitp/tours/exe/promo_accept.php?id={$quote_id}'>Confirm Acceptance</a>";
 	#$message .= "<a href='http://127.0.0.1:8888/eitp/tours/exe/promo_accept.php?id={$quote_id}'>Confirm Acceptance</a>";
 	$headers = "From: welcome@entertainment-intelligence.com\r\nReply-To: welcome@entertainment-intelligence.com";
