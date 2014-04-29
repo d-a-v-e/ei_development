@@ -7,7 +7,7 @@ ob_start();
 
 	$sql = "SELECT u.firstname, u.lastname, u.email, c.name AS campaign, c.artist, v.name, r.city, q.`date`, q.capacity, q.face_value, q.guarantee\n"
 	. "FROM quotes AS q \n"
-	. "JOIN users AS u ON q.creator_id = u.id \n"
+	. "JOIN users AS u ON q.creator_id = u.id \n" // because creator_id now means the user ID of whoever gave the quote
 	. "JOIN routing AS r ON q.date_id = r.id\n"
 	. "JOIN venue AS v ON q.venue_id = v.id\n"
 	. "JOIN campaigns AS c ON r.campaign_id = c.id\n"
