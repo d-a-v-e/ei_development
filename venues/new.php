@@ -42,6 +42,9 @@ if (isset($_POST['submit'])) {
     $postzip = $_POST["postzip"];
     $description = $_POST["description"];
     $Website = $_POST['website'];
+    $firstname = $_POST["firstname"];
+    $lastname = $_POST["lastname"];
+    $email = $_POST["email"];
 
     if ($country === 'UK') {
         $country = 'GB';
@@ -61,6 +64,17 @@ if (isset($_POST['submit'])) {
         if (!empty($description)) {
             $sql .= " description = '{$description}' ";
         }
+
+         //create company record for venue
+            $sql2 = "INSERT INTO company SET name = '{$name}', companytypeid = 5, description = '{$description}', recordstatus = 1, datecreated = NOW() ";
+            mysqli_query($connection, $sql2);
+            $companyid = mysqli_insert_id($connection);
+            $sql2 = "INSERT INTO office SET companyid = {$companyid}, office_name = '{$name}', town = '{$city}', country = '{$country}', address3 = '{$postzip}', recordstatus = 1, datecreated = NOW() ";
+            mysqli_query($connection, $sql2);
+            $officeid = mysqli_insert_id($connection);
+            $sql2 = "INSERT INTO users SET companyid = {$companyid}, officeid = {$officeid}, firstname = '{$firstname}', lastname = '{$lastname}', email = '{$email}', recordstatus = 1, datecreated = NOW() ";
+            mysqli_query($connection, $sql2);
+
         $result = mysqli_query($connection, $sql);
         $insert = mysqli_insert_id($connection);
         
@@ -112,6 +126,22 @@ if (isset($_POST['submit'])) {
                     <h2><strong>Add</strong> Venue</h2>
                 </div>
                 <form action="<?php echo $_SERVER['PHP_SELF'] . '?' . $_SERVER['QUERY_STRING']; ?>" method="post" class="form-horizontal" >
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" > Contact Name </label>
+                        <div class="col-md-4">
+                            <input type="text" id="firstname" name="firstname" class="form-control" placeholder="First" required>
+                        </div>
+                        <div class="col-md-5">
+                            <input type="text" id="lastname" name="lastname" class="form-control" placeholder="Last" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="email" > Contact Email </label>
+                        <div class="col-md-9">
+                                <input type="text" id="email" name="email" class="form-control" placeholder="someone@example.com" required>
+                        </div>
+                    </div>
+                    <legend></legend>
                     <div class="form-group">
                         <label class="col-md-3 control-label" for="name" > Name</label>
                         <div class="col-md-9">
@@ -172,7 +202,7 @@ if (isset($_POST['submit'])) {
                     </div>
                     <div class="form-group form-actions">
                         <div class="col-md-9 col-md-offset-3">
-                            <button type="submit" name="submit" class="btn btn-sm btn-primary"><i class="gi gi-piano"></i> Add</button>
+                            <button type="submit" name="submit" class="btn btn-sm btn-primary"><i class="gi gi-bank"></i> Add</button>
                             <button type="reset" class="btn btn-sm btn-warning"><i class="fa fa-repeat"></i> Reset</button>
                         </div>
                     </div>
