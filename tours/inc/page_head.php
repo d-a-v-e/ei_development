@@ -63,8 +63,8 @@
             <!-- Sidebar Content -->
             <div class="sidebar-content">
                 <!-- Brand -->
-                <a href="../index.php" class="sidebar-brand">
-                    <i class="gi gi-flash"></i><strong>E</strong>i
+                <a href="index.php" class="sidebar-brand">
+                        <img src="../img/eiimg/ei-logo-sidebar.png" alt="ei-logo" width="150px" />
                 </a>
                 <!-- END Brand -->
 

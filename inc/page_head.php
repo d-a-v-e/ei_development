@@ -35,25 +35,25 @@
     'header-fixed-bottom'                           has to be added only if the class 'navbar-fixed-bottom' was added on header.navbar
 -->
 <?php
-    $page_classes = '';
+$page_classes = '';
 
-    if ($template['header'] == 'navbar-fixed-top') {
-        $page_classes = 'header-fixed-top';
-    } else if ($template['header'] == 'navbar-fixed-bottom') {
-        $page_classes = 'header-fixed-bottom';
-    }
+if ($template['header'] == 'navbar-fixed-top') {
+    $page_classes = 'header-fixed-top';
+} else if ($template['header'] == 'navbar-fixed-bottom') {
+    $page_classes = 'header-fixed-bottom';
+}
 
-    if ($template['sidebar']) {
-        $page_classes .= (($page_classes == '') ? '' : ' ') . $template['sidebar'];
-    }
+if ($template['sidebar']) {
+    $page_classes .= (($page_classes == '') ? '' : ' ') . $template['sidebar'];
+}
 
-    if ($template['main_style'] == 'style-alt')  {
-        $page_classes .= (($page_classes == '') ? '' : ' ') . 'style-alt';
-    }
+if ($template['main_style'] == 'style-alt')  {
+    $page_classes .= (($page_classes == '') ? '' : ' ') . 'style-alt';
+}
 
-    if ($template['footer'] == 'footer-fixed')  {
-        $page_classes .= (($page_classes == '') ? '' : ' ') . 'footer-fixed';
-    }
+if ($template['footer'] == 'footer-fixed')  {
+    $page_classes .= (($page_classes == '') ? '' : ' ') . 'footer-fixed';
+}
 ?>
 <div id="page-container"<?php if ($page_classes) { echo ' class="' . $page_classes . '"'; } ?>>
     <!-- Main Sidebar -->
@@ -64,7 +64,7 @@
             <div class="sidebar-content">
                 <!-- Brand -->
                 <a href="index.php" class="sidebar-brand">
-                    <i class="gi gi-flash"></i><strong>E</strong>i
+                        <img src="img/eiimg/ei-logo-sidebar.png" alt="ei-logo" width="150px" />
                 </a>
                 <!-- END Brand -->
 
@@ -123,16 +123,16 @@
                         if ($menu_link || $active) {
                             $link_class = ' class="'. $menu_link . $active .'"';
                         }
-                    ?>
-                    <?php if ($url == 'header') { // if it is a header and not a link ?>
-                    <li class="sidebar-header">
-                        <?php if (isset($link['opt']) && $link['opt']) { // If the header has options set ?>
-                        <span class="sidebar-header-options clearfix"><?php echo $link['opt']; ?></span>
-                        <?php } ?>
-                        <span class="sidebar-header-title"><?php echo $link['name']; ?></span>
-                    </li>
-                    <?php } else { // If it is a link ?>
-                    <li<?php echo $li_active; ?>>
+                        ?>
+                        <?php if ($url == 'header') { // if it is a header and not a link ?>
+                        <li class="sidebar-header">
+                            <?php if (isset($link['opt']) && $link['opt']) { // If the header has options set ?>
+                            <span class="sidebar-header-options clearfix"><?php echo $link['opt']; ?></span>
+                            <?php } ?>
+                            <span class="sidebar-header-title"><?php echo $link['name']; ?></span>
+                        </li>
+                        <?php } else { // If it is a link ?>
+                        <li<?php echo $li_active; ?>>
                         <a href="<?php echo $url; ?>"<?php echo $link_class; ?>><?php if (isset($link['sub']) && $link['sub']) { // if the link has a submenu ?><i class="fa fa-angle-left sidebar-nav-indicator"></i><?php } echo $icon . $link['name']; ?></a>
                         <?php if (isset($link['sub']) && $link['sub']) { // if the link has a submenu ?>
                         <ul>
@@ -162,43 +162,43 @@
                                 if ($submenu_link || $active) {
                                     $link_class = ' class="'. $submenu_link . $active .'"';
                                 }
-                            ?>
-                            <li<?php echo $li_active; ?>>
+                                ?>
+                                <li<?php echo $li_active; ?>>
                                 <a href="<?php echo $url; ?>"<?php echo $link_class; ?>><?php if (isset($sub_link['sub']) && $sub_link['sub']) { ?><i class="fa fa-angle-left sidebar-nav-indicator"></i><?php } echo $sub_link['name']; ?></a>
                                 <?php if (isset($sub_link['sub']) && $sub_link['sub']) { ?>
-                                    <ul>
-                                        <?php foreach ($sub_link['sub'] as $sub2_link) {
+                                <ul>
+                                    <?php foreach ($sub_link['sub'] as $sub2_link) {
                                             // Get 3rd level link's vital info
-                                            $url    = (isset($sub2_link['url']) && $sub2_link['url']) ? $sub2_link['url'] : '#';
-                                            $active = (isset($sub2_link['url']) && ($template['active_page'] == $sub2_link['url'])) ? ' class="active"' : '';
+                                        $url    = (isset($sub2_link['url']) && $sub2_link['url']) ? $sub2_link['url'] : '#';
+                                        $active = (isset($sub2_link['url']) && ($template['active_page'] == $sub2_link['url'])) ? ' class="active"' : '';
                                         ?>
                                         <li>
                                             <a href="<?php echo $url; ?>"<?php echo $active ?>><?php echo $sub2_link['name']; ?></a>
                                         </li>
                                         <?php } ?>
                                     </ul>
+                                    <?php } ?>
+                                </li>
                                 <?php } ?>
-                            </li>
+                            </ul>
                             <?php } ?>
-                        </ul>
+                        </li>
                         <?php } ?>
-                    </li>
+                        <?php } ?>
+                    </ul>
+                    <!-- END Sidebar Navigation -->
                     <?php } ?>
-                    <?php } ?>
-                </ul>
-                <!-- END Sidebar Navigation -->
-                <?php } ?>
+                </div>
+                <!-- END Sidebar Content -->
             </div>
-            <!-- END Sidebar Content -->
+            <!-- END Wrapper for scrolling functionality -->
         </div>
-        <!-- END Wrapper for scrolling functionality -->
-    </div>
-    <!-- END Main Sidebar -->
+        <!-- END Main Sidebar -->
 
-    <!-- Main Container -->
-    <div id="main-container">
-        <!-- Header -->
-        <!-- In the PHP version you can set the following options from inc/config.php file -->
+        <!-- Main Container -->
+        <div id="main-container">
+            <!-- Header -->
+            <!-- In the PHP version you can set the following options from inc/config.php file -->
         <!--
             Available header.navbar classes:
 
@@ -210,146 +210,146 @@
 
             'navbar-fixed-bottom'       for a bottom fixed header (fixed sidebars with scroll will be auto initialized, functionality can be found in js/app.js - handleSidebar()))
                 'header-fixed-bottom'   has to be added on #page-container only if the class 'navbar-fixed-bottom' was added
-        -->
-        <header class="navbar<?php if ($template['header_navbar']) { echo ' ' . $template['header_navbar']; } ?><?php if ($template['header']) { echo ' '. $template['header']; } ?>">
-            <?php if ( $template['header_content'] == 'horizontal-menu' ) { // Horizontal Menu Header Content ?>
-            <!-- Navbar Header -->
-            <div class="navbar-header">
-                <!-- Main Sidebar Toggle Button -->
+            -->
+            <header class="navbar<?php if ($template['header_navbar']) { echo ' ' . $template['header_navbar']; } ?><?php if ($template['header']) { echo ' '. $template['header']; } ?>">
+                <?php if ( $template['header_content'] == 'horizontal-menu' ) { // Horizontal Menu Header Content ?>
+                <!-- Navbar Header -->
+                <div class="navbar-header">
+                    <!-- Main Sidebar Toggle Button -->
+                    <ul class="nav navbar-nav-custom">
+                        <li>
+                            <a href="javascript:void(0)" onclick="App.sidebar('toggle-sidebar');">
+                                <i class="fa fa-bars fa-fw"></i>
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- END Main Sidebar Toggle Button -->
+                </div>
+                <!-- END Navbar Header -->
+
+                <!-- END Alternative Sidebar Toggle Button -->
+
+                <!-- Horizontal Menu + Search -->
+                <div id="horizontal-menu-collapse" class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <a href="javascript:void(0)">Home</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)">Profile</a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">Settings <i class="fa fa-angle-down"></i></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="javascript:void(0)"><i class="fa fa-asterisk fa-fw pull-right"></i> General</a></li>
+                                <li><a href="javascript:void(0)"><i class="fa fa-lock fa-fw pull-right"></i> Security</a></li>
+                                <li><a href="javascript:void(0)"><i class="fa fa-user fa-fw pull-right"></i> Account</a></li>
+                                <li><a href="javascript:void(0)"><i class="fa fa-magnet fa-fw pull-right"></i> Subscription</a></li>
+                                <li class="divider"></li>
+                                <li class="dropdown-submenu">
+                                    <a href="javascript:void(0)" tabindex="-1"><i class="fa fa-chevron-right fa-fw pull-right"></i> More Settings</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="javascript:void(0)" tabindex="-1">Second level</a></li>
+                                        <li><a href="javascript:void(0)">Second level</a></li>
+                                        <li><a href="javascript:void(0)">Second level</a></li>
+                                        <li class="divider"></li>
+                                        <li class="dropdown-submenu">
+                                            <a href="javascript:void(0)" tabindex="-1"><i class="fa fa-chevron-right fa-fw pull-right"></i> More Settings</a>
+                                            <ul class="dropdown-menu">
+                                                <li><a href="javascript:void(0)">Third level</a></li>
+                                                <li><a href="javascript:void(0)">Third level</a></li>
+                                                <li><a href="javascript:void(0)">Third level</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">Contact <i class="fa fa-angle-down"></i></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="javascript:void(0)"><i class="fa fa-envelope-o fa-fw pull-right"></i> By Email</a></li>
+                                <li><a href="javascript:void(0)"><i class="fa fa-phone fa-fw pull-right"></i> By Phone</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <form action="page_ready_search_results.php" class="navbar-form navbar-left" role="search">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Search..">
+                        </div>
+                    </form>
+                </div>
+                <!-- END Horizontal Menu + Search -->
+                <?php } else { // Default Header Content  ?>
+                <!-- Left Header Navigation -->
                 <ul class="nav navbar-nav-custom">
+                    <!-- Main Sidebar Toggle Button -->
                     <li>
                         <a href="javascript:void(0)" onclick="App.sidebar('toggle-sidebar');">
                             <i class="fa fa-bars fa-fw"></i>
                         </a>
                     </li>
                 </ul>
-                <!-- END Main Sidebar Toggle Button -->
-            </div>
-            <!-- END Navbar Header -->
+                <!-- END Left Header Navigation -->
 
-            <!-- END Alternative Sidebar Toggle Button -->
+                <!-- Search Form -->
+                <form action="#" method="post" class="navbar-form-custom" role="search">
+                    <div class="form-group">
+                        <input type="text" id="top-search" name="top-search" class="form-control" placeholder="Search..">
+                    </div>
+                </form>
+                <!-- END Search Form -->
 
-            <!-- Horizontal Menu + Search -->
-            <div id="horizontal-menu-collapse" class="collapse navbar-collapse">
-                <ul class="nav navbar-nav">
-                    <li>
-                        <a href="javascript:void(0)">Home</a>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0)">Profile</a>
-                    </li>
+                <!-- Right Header Navigation -->
+                <ul class="nav navbar-nav-custom pull-right">
+                    <!-- User Dropdown -->
                     <li class="dropdown">
-                        <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">Settings <i class="fa fa-angle-down"></i></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="javascript:void(0)"><i class="fa fa-asterisk fa-fw pull-right"></i> General</a></li>
-                            <li><a href="javascript:void(0)"><i class="fa fa-lock fa-fw pull-right"></i> Security</a></li>
-                            <li><a href="javascript:void(0)"><i class="fa fa-user fa-fw pull-right"></i> Account</a></li>
-                            <li><a href="javascript:void(0)"><i class="fa fa-magnet fa-fw pull-right"></i> Subscription</a></li>
+                        <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">
+                            <img src="img/placeholders/avatars/avatar2.jpg" alt="avatar"> <i class="fa fa-angle-down"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-custom dropdown-menu-right">
+                            <li class="dropdown-header text-center">Account</li>
+                            <li>
+                                <a href="campaigns/index.php">
+                                    <i class="fa fa-bullhorn fa-fw pull-right"></i>
+                                    <span class="badge pull-right">10</span>
+                                    Campaigns
+                                </a>
+                                <a href="tours/index.php">
+                                    <i class="fa fa-suitcase fa-fw pull-right"></i>
+                                    <span class="badge pull-right">5</span>
+                                    Tours
+                                </a>
+                                <a href="javascript:void()"> <i class="gi gi-charts fa-fw pull-right"> </i> 
+                                    <span class="badge pull-right">3 </span>
+                                    Reports
+                                </a>
+                                <a href="javascript:void()"><i class="fa fa-comment fa-fw pull-right"></i>
+                                    <span class="badge pull-right">11</span>
+                                    Discussions
+                                </a>
+                            </li>
                             <li class="divider"></li>
-                            <li class="dropdown-submenu">
-                                <a href="javascript:void(0)" tabindex="-1"><i class="fa fa-chevron-right fa-fw pull-right"></i> More Settings</a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="javascript:void(0)" tabindex="-1">Second level</a></li>
-                                    <li><a href="javascript:void(0)">Second level</a></li>
-                                    <li><a href="javascript:void(0)">Second level</a></li>
-                                    <li class="divider"></li>
-                                    <li class="dropdown-submenu">
-                                        <a href="javascript:void(0)" tabindex="-1"><i class="fa fa-chevron-right fa-fw pull-right"></i> More Settings</a>
-                                        <ul class="dropdown-menu">
-                                            <li><a href="javascript:void(0)">Third level</a></li>
-                                            <li><a href="javascript:void(0)">Third level</a></li>
-                                            <li><a href="javascript:void(0)">Third level</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-user fa-fw pull-right"></i>
+                                    Profile
+                                </a>
+                                <!-- Opens the user settings modal that can be found at the bottom of each page (page_footer.php in PHP version) -->
+                                <a href="#modal-user-settings" data-toggle="modal">
+                                    <i class="fa fa-cog fa-fw pull-right"></i>
+                                    Settings
+                                </a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="login.php"><i class="fa fa-ban fa-fw pull-right"></i> Logout</a>
                             </li>
                         </ul>
                     </li>
-                    <li class="dropdown">
-                        <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">Contact <i class="fa fa-angle-down"></i></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="javascript:void(0)"><i class="fa fa-envelope-o fa-fw pull-right"></i> By Email</a></li>
-                            <li><a href="javascript:void(0)"><i class="fa fa-phone fa-fw pull-right"></i> By Phone</a></li>
-                        </ul>
-                    </li>
+                    <!-- END User Dropdown -->
                 </ul>
-                <form action="page_ready_search_results.php" class="navbar-form navbar-left" role="search">
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Search..">
-                    </div>
-                </form>
-            </div>
-            <!-- END Horizontal Menu + Search -->
-            <?php } else { // Default Header Content  ?>
-            <!-- Left Header Navigation -->
-            <ul class="nav navbar-nav-custom">
-                <!-- Main Sidebar Toggle Button -->
-                <li>
-                    <a href="javascript:void(0)" onclick="App.sidebar('toggle-sidebar');">
-                        <i class="fa fa-bars fa-fw"></i>
-                    </a>
-                </li>
-            </ul>
-            <!-- END Left Header Navigation -->
-
-            <!-- Search Form -->
-            <form action="#" method="post" class="navbar-form-custom" role="search">
-                <div class="form-group">
-                    <input type="text" id="top-search" name="top-search" class="form-control" placeholder="Search..">
-                </div>
-            </form>
-            <!-- END Search Form -->
-
-            <!-- Right Header Navigation -->
-            <ul class="nav navbar-nav-custom pull-right">
-                <!-- User Dropdown -->
-                <li class="dropdown">
-                    <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">
-                        <img src="img/placeholders/avatars/avatar2.jpg" alt="avatar"> <i class="fa fa-angle-down"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-custom dropdown-menu-right">
-                        <li class="dropdown-header text-center">Account</li>
-                        <li>
-                            <a href="campaigns/index.php">
-                                <i class="fa fa-bullhorn fa-fw pull-right"></i>
-                                <span class="badge pull-right">10</span>
-                                Campaigns
-                            </a>
-                            <a href="tours/index.php">
-                                <i class="fa fa-suitcase fa-fw pull-right"></i>
-                                <span class="badge pull-right">5</span>
-                                Tours
-                            </a>
-                            <a href="javascript:void()"> <i class="gi gi-charts fa-fw pull-right"> </i> 
-                                <span class="badge pull-right">3 </span>
-                                Reports
-                            </a>
-                            <a href="javascript:void()"><i class="fa fa-comment fa-fw pull-right"></i>
-                                <span class="badge pull-right">11</span>
-                                Discussions
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <i class="fa fa-user fa-fw pull-right"></i>
-                                Profile
-                            </a>
-                            <!-- Opens the user settings modal that can be found at the bottom of each page (page_footer.php in PHP version) -->
-                            <a href="#modal-user-settings" data-toggle="modal">
-                                <i class="fa fa-cog fa-fw pull-right"></i>
-                                Settings
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="login.php"><i class="fa fa-ban fa-fw pull-right"></i> Logout</a>
-                        </li>
-                    </ul>
-                </li>
-                <!-- END User Dropdown -->
-            </ul>
-            <!-- END Right Header Navigation -->
-            <?php } ?>
-        </header>
-        <!-- END Header -->
+                <!-- END Right Header Navigation -->
+                <?php } ?>
+            </header>
+            <!-- END Header -->
